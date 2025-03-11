@@ -1,0 +1,45 @@
+export const codingJokes = [
+    "Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25!",
+    "Why do Java developers wear glasses? Because they can't C#!",
+    "Why don't programmers like nature? It has too many bugs.",
+    "Why did the programmer quit his job? Because he didn't get arrays.",
+    "Why do programmers prefer dark mode? Because light attracts bugs.",
+    "What do you call a programmer from Finland? Nerdic.",
+    "Why did the programmer go broke? Because he used up all his cache.",
+    "What's a programmer's favorite hangout place? The Foo Bar.",
+    "Why do programmers always confuse Christmas and Halloween? Because Dec 25 is Oct 31.",
+    "Why don't programmers like to go outside? The sunlight causes too many reflections.",
+    "What do you call a programmer who doesn't comment their code? A future job security specialist.",
+    "Why did the programmer get stuck in the shower? The instructions on the shampoo bottle said: Lather, Rinse, Repeat.",
+    "What's the object-oriented way to become wealthy? Inheritance.",
+    "Why did the programmer get kicked out of school? Because he kept breaking the class.",
+    "What's a programmer's favorite snack? Cookies and cache.",
+    "Why did the programmer go to therapy? Because he had too many unresolved issues.",
+    "What do you call a programmer who doesn't like coffee? A liar.",
+    "Why did the programmer get kicked out of the bar? He kept trying to order a float.",
+    "What's a programmer's favorite place to go on vacation? The Cloud."
+];
+
+export const greetings = [
+    "Hi there! How can I help?",
+    "Hello! What can I do for you?",
+    "Hey! How's it going?",
+    "Hi! Ready to assist you!",
+    "Hello! What brings you here?",
+    "Hey there! Need any help?",
+    "Hi! How can I assist?",
+    "Hello! Let’s get started!",
+    "Hi! What’s on your mind?",
+    "Hey! How can I help today?",
+    "Hi! Nice to see you!",
+    "Hello! What do you need?",
+    "Hey! Let’s chat!",
+    "Hi! How’s your day going?",
+    "Hello! How can I support you?",
+    "Hi! What’s up?",
+    "Hey! Ready to help!",
+    "Hi! Let’s make things easier!",
+    "Hello! How can I assist today?",
+    "Hi! What can I do for you?"
+];
+
