@@ -5,103 +5,155 @@ import { aboutMessage, codingJokes, greetings } from "./data/msgCollection.js";
 import { mainMenu, algoMenu, helpMenu } from "./utils/menuUtils.js";
 import { algoCollection } from "./data/algorithms.js";
 
+// Load environment variables from .env file
 dotenv.config();
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
-//action: click, command: /, hears: handles specific text messages
+try {
+	// Initialize the bot with the token from environment variables
+	const bot = new Telegraf(process.env.BOT_TOKEN);
 
-const eventTypes = ["action", "hears", "command"];
+	// Define the types of events to listen for
+	const eventTypes = ["action", "hears", "command"];
 
-bot.start((ctx) => {
-    ctx.reply(getRandomx(greetings));
-    mainMenu(ctx);
-});
+	// Handle the /start command
+	bot.start((ctx) => {
+		ctx.reply(getRandomx(greetings));
+		setTimeout(() => {
+			mainMenu(ctx);
+		}, 200);
+	});
 
-bot.telegram.setMyCommands([
-    { command: "start", description: "Start the bot" },
-    { command: "help", description: "Show help menu" },
-    { command: "menu", description: "Show command menu" },
-    { command: "joke", description: "Get a random joke" },
-    { command: "algorithm", description: "Algorithm info" },
-    { command: "compiler", description: "Compiler options" }
-]);
+	// Handle the /help command
+	bot.help((ctx) => helpMenu(ctx));
 
+	// Handle the "help" action
+	bot.action("help", (ctx) => helpMenu(ctx));
 
-/**
- * Support all three events action, hears, command
- *
- */
+	// Set bot commands
+	bot.telegram.setMyCommands([
+		{ command: "start", description: "Start the bot" },
+		{ command: "help", description: "Show help menu" },
+		{ command: "menu", description: "Show command menu" },
+		{ command: "joke", description: "Get a random joke" },
+		{ command: "algorithms", description: "Algorithms info" },
+		{ command: "algo", description: "desired algo options" },
+	]);
 
-//algorithm
-eventTypes.forEach((method) => {
-    bot[method]("algorithm", (ctx) => algoMenu(ctx));
-});
+	// Handle "algorithm" events
+	eventTypes.forEach((method) => {
+		bot[method]("algorithms", (ctx) => algoMenu(ctx));
+	});
 
-//joke
-eventTypes.forEach((method) => {
-    bot[method]("joke", (ctx) => {
-        ctx.reply(
-            `${getRandomx(codingJokes)}`,
-            Markup.inlineKeyboard([
-                [Markup.button.callback("🔙 Back to Menu", "menu")],
-            ]).resize()
-        );
-    });
-});
+	// Handle "joke" events
+	eventTypes.forEach((method) => {
+		bot[method]("joke", (ctx) => {
+			ctx.reply(
+				`${getRandomx(codingJokes)}`,
+				Markup.inlineKeyboard([
+					[Markup.button.callback("🔙 Back to Menu", "menu")],
+				]).resize()
+			);
+		});
+	});
 
-// main menu
-eventTypes.forEach((method) => {
-    bot[method]("menu", (ctx) => mainMenu(ctx));
-});
+	// Handle "menu" events
+	eventTypes.forEach((method) => {
+		bot[method]("menu", (ctx) => mainMenu(ctx));
+	});
 
-// algo menu
-eventTypes.forEach((method) => {
-    bot[method]("algomenu", (ctx) => algoMenu(ctx));
-});
+	// Handle "algomenu" events
+	eventTypes.forEach((method) => {
+		bot[method]("algomenu", (ctx) => algoMenu(ctx));
+	});
 
-eventTypes.forEach((method) => {
-    bot[method]("about", (ctx) =>
-        ctx.reply(
-            aboutMessage,
-            Markup.inlineKeyboard([
-                [Markup.button.callback("📜 See Commands", "help")],
-                [Markup.button.callback("🔙 Back to Menu", "menu")],
-            ]).resize()
-        )
-    );
-});
+	// Handle "about" events
+	eventTypes.forEach((method) => {
+		bot[method]("about", (ctx) =>
+			ctx.reply(
+				aboutMessage,
+				Markup.inlineKeyboard([
+					[Markup.button.callback("📜 See Commands", "help")],
+					[Markup.button.callback("🔙 Back to Menu", "menu")],
+				]).resize()
+			)
+		);
+	});
 
-//triggers for algocollection
-for (const key in algoCollection) {
-    let trigger_msg = key.toLowerCase().trim().replace(" ", "");
-    bot.action(trigger_msg, (ctx) =>
-        ctx.reply(
-            `${key} \n\n${algoCollection[key]}`,
-            Markup.inlineKeyboard([
-                [Markup.button.callback("🔙 Back to Algo Menu", "algomenu")],
-                [Markup.button.callback("🔙 Back to Menu", "menu")],
-            ]).resize()
-        )
-    );
-    bot.hears(trigger_msg, (ctx) =>
-        ctx.reply(`${key} \n\n${algoCollection[key]}`)
-    );
-    bot.command(trigger_msg, (ctx) =>
-        ctx.reply(`${key} \n\n${algoCollection[key]}`)
-    );
+	// Handle specific algorithm actions
+	for (const key in algoCollection) {
+		let trigger_msg = key.toLowerCase().trim().replace(" ", "");
+		bot.action(trigger_msg, (ctx) =>
+			ctx.reply(`\`\`\`\n${algoCollection[key]}\n\`\`\``, {
+				parse_mode: "MarkdownV2",
+				reply_markup: {
+					inline_keyboard: [
+						[
+							{
+								text: "🔙 Back to Algo Menu",
+								callback_data: "algomenu",
+							},
+						],
+						[{ text: "🔙 Back to Menu", callback_data: "menu" }],
+					],
+				},
+			})
+		);
+	}
+
+	// Handle the /algo command
+	bot.command("algo", (ctx) => {
+		const args = ctx.message.text.split(" ").slice(1);
+		const query = args.join("").trim().replace(" ", "").toLowerCase();
+		if (!query) {
+			return ctx.reply(
+				"Please provide an algorithm name. Example: `/algo sorting`"
+			);
+		}
+
+		for (const key in algoCollection) {
+			if (key.replace(" ", "").toLowerCase() === query) {
+				ctx.reply(`\`\`\`\n${algoCollection[key]}\n\`\`\``, {
+					parse_mode: "MarkdownV2",
+					reply_markup: {
+						inline_keyboard: [
+							[
+								{
+									text: "🔙 Back to Algo Menu",
+									callback_data: "algomenu",
+								},
+							],
+							[
+								{
+									text: "🔙 Back to Menu",
+									callback_data: "menu",
+								},
+							],
+						],
+					},
+				});
+				return;
+			}
+		}
+
+		ctx.reply(
+			`No information found for "${query}". Try another algorithm.`
+		);
+	});
+
+	// Handle any other messages
+	bot.hears(/.*/, (ctx) => {
+		ctx.reply(
+			"I didn't understand that. Try one of these:",
+			Markup.inlineKeyboard([
+				[Markup.button.callback("📜 See Commands", "help")],
+				[Markup.button.callback("🔙 Back to Menu", "menu")],
+			]).resize()
+		);
+	});
+
+	// Launch the bot
+	bot.launch();
+} catch (err) {
+	// Log any errors
+	console.log("Something went wrong", err);
 }
-
-bot.command("help", (ctx) => helpMenu(ctx));
-
-// handle random messages
-bot.hears(/.*/, (ctx) => {
-    ctx.reply(
-        "I didn't understand that. Try one of these:",
-        Markup.inlineKeyboard([
-            [Markup.button.callback("📜 See Commands", "help")],
-            [Markup.button.callback("🔙 Back to Menu", "menu")],
-        ]).resize()
-    );
-});
-
-bot.launch();
