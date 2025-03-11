@@ -12,6 +12,7 @@ export function mainMenu(ctx) {
     );
 }
 
+//algo menu logic
 export function algoMenu(ctx) {
     const collection = [];
     for (const key in algoCollection) {

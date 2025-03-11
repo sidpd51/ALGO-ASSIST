@@ -1,23 +1,19 @@
 export const codingJokes = [
-    "Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25!",
-    "Why do Java developers wear glasses? Because they can't C#!",
-    "Why don't programmers like nature? It has too many bugs.",
-    "Why did the programmer quit his job? Because he didn't get arrays.",
-    "Why do programmers prefer dark mode? Because light attracts bugs.",
-    "What do you call a programmer from Finland? Nerdic.",
-    "Why did the programmer go broke? Because he used up all his cache.",
-    "What's a programmer's favorite hangout place? The Foo Bar.",
-    "Why do programmers always confuse Christmas and Halloween? Because Dec 25 is Oct 31.",
-    "Why don't programmers like to go outside? The sunlight causes too many reflections.",
-    "What do you call a programmer who doesn't comment their code? A future job security specialist.",
-    "Why did the programmer get stuck in the shower? The instructions on the shampoo bottle said: Lather, Rinse, Repeat.",
-    "What's the object-oriented way to become wealthy? Inheritance.",
-    "Why did the programmer get kicked out of school? Because he kept breaking the class.",
-    "What's a programmer's favorite snack? Cookies and cache.",
-    "Why did the programmer go to therapy? Because he had too many unresolved issues.",
-    "What do you call a programmer who doesn't like coffee? A liar.",
-    "Why did the programmer get kicked out of the bar? He kept trying to order a float.",
-    "What's a programmer's favorite place to go on vacation? The Cloud."
+    "Why do Python programmers prefer dark mode? Because they don’t like whitespace!",
+    "Why did the JavaScript developer break up with his girlfriend? Because she didn’t 'callback'.",
+    "How do you comfort a JavaScript bug? You 'console' it.",
+    "Why was the JavaScript developer sad? Because he didn't 'null' his ex.",
+    "Why do SQL developers hate the outdoors? Because they prefer tables inside.",
+    "Why do programmers hate cooking? Because they always mess up the 'syntax' of the recipe.",
+    "Why don’t programmers play hide and seek? Because good luck hiding when they have 'global scope'!",
+    "Why did the CSS developer go to therapy? Because he had too many 'margin' issues.",
+    "Why do programmers hate writing documentation? Because it’s the only thing harder than naming variables.",
+    "What do you call a group of 8 bits? A 'byte' of humor.",
+    "Why did the C developer go to jail? Because he used a pointer without permission!",
+    "What’s a functional programmer’s favorite dish? 'Currying'!",
+    "Why did the developer become a musician? Because he wanted to handle more 'keys'.",
+    "Why did the frontend developer break up with the backend developer? They had too many 'API' issues.",
+    "Why did the programmer refuse to ride the elevator? Because he didn’t want to deal with ‘callbacks’.",
 ];
 
 export const greetings = [
@@ -40,6 +36,5 @@ export const greetings = [
     "Hey! Ready to help!",
     "Hi! Let’s make things easier!",
     "Hello! How can I assist today?",
-    "Hi! What can I do for you?"
+    "Hi! What can I do for you?",
 ];
-
