@@ -36,11 +36,10 @@ export function helpMenu(ctx) {
         🔹 /menu - Show main menu  
         🔹 /help - Show this help message  
         🔹 /joke - Get a random joke  
-        🔹 /info - Learn about algorithms & compilers  
+        🔹 /algomenu - Learn about algorithms
 
         Click a button below to explore! ⬇️`,
         Markup.inlineKeyboard([
-            [Markup.button.callback("📜 Commands", "commands")],
             [Markup.button.callback("💡 About", "about")],
             [Markup.button.callback("🔙 Back to Menu", "menu")],
         ]).resize()
