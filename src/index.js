@@ -61,11 +61,6 @@ try {
 		bot[method]("menu", (ctx) => mainMenu(ctx));
 	});
 
-	// Handle "algomenu" events
-	eventTypes.forEach((method) => {
-		bot[method]("algomenu", (ctx) => algoMenu(ctx));
-	});
-
 	// Handle "about" events
 	eventTypes.forEach((method) => {
 		bot[method]("about", (ctx) =>

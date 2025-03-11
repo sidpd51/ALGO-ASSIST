@@ -7,7 +7,7 @@ export function mainMenu(ctx) {
 		"📌 Choose an option:",
 		Markup.inlineKeyboard([
 			[Markup.button.callback("😂 Joke", "joke")],
-			[Markup.button.callback("📚 Algorithm", "algorithm")],
+			[Markup.button.callback("📚 Algorithms", "algorithms")],
 			[Markup.button.callback("ℹ️ About", "about")],
 		])
 	);
@@ -24,7 +24,7 @@ export function algoMenu(ctx) {
 			),
 		]);
 	}
-
+	collection.push([Markup.button.callback("🔙 Back to Menu", "menu")]);
 	ctx.reply("Choose an algorithm:", Markup.inlineKeyboard(collection));
 }
 
