@@ -8,43 +8,46 @@ import { algoCollection } from "./data/algorithms.js";
 dotenv.config();
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-const mainMenuOptions = ["joke", "algorithm", "compiler"];
+//action: click, command: /, hears: handles specific text messages
+
+const eventTypes = ["action", "hears", "command"];
 
 bot.start((ctx) => {
     ctx.reply(getRandomx(greetings));
     mainMenu(ctx);
 });
 
-mainMenuOptions.forEach((element) => {
-    if (element === "algorithm") {
-        bot.action(element, (ctx) => {
-            algoMenu(ctx);
-            ctx.reply(
-                "🔘 Select an option:",
-                Markup.inlineKeyboard([
-                    [Markup.button.callback("🔙 Back to Menu", "menu")],
-                ]).resize()
-            );
-        });
-    } else {
-        bot.action(element, (ctx) => {
-            ctx.reply(
-                `${getRandomx(codingJokes)}`,
-                Markup.inlineKeyboard([
-                    [Markup.button.callback("🔙 Back to Menu", "menu")],
-                ]).resize()
-            );
-        });
-    }
+/**
+ * Support all three events action, hears, command
+ *
+ */
+
+//algorithm
+eventTypes.forEach((method) => {
+    bot[method]("algorithm", (ctx) => algoMenu(ctx));
 });
 
-bot.action("menu", (ctx) => mainMenu(ctx));
-bot.hears("menu", (ctx) => mainMenu(ctx));
-bot.command("menu", (ctx) => mainMenu(ctx));
+//joke
+eventTypes.forEach((method) => {
+    bot[method]("joke", (ctx) => {
+        ctx.reply(
+            `${getRandomx(codingJokes)}`,
+            Markup.inlineKeyboard([
+                [Markup.button.callback("🔙 Back to Menu", "menu")],
+            ]).resize()
+        );
+    });
+});
 
-bot.action("algomenu", (ctx) => algoMenu(ctx));
-bot.hears("algomenu", (ctx) => algoMenu(ctx));
-bot.command("algomenu", (ctx) => algoMenu(ctx));
+// main menu
+eventTypes.forEach((method) => {
+    bot[method]("menu", (ctx) => mainMenu(ctx));
+});
+
+// algo menu
+eventTypes.forEach((method) => {
+    bot[method]("algomenu", (ctx) => algoMenu(ctx));
+});
 
 //triggers for algocollection
 for (const key in algoCollection) {
@@ -67,5 +70,16 @@ for (const key in algoCollection) {
 }
 
 bot.help((ctx) => ctx.reply("How can i help you? \n\njoke: /joke \n\n"));
+
+// handle random messages
+bot.hears(/.*/, (ctx) => {
+    ctx.reply(
+        "I didn't understand that. Try one of these:",
+        Markup.inlineKeyboard([
+            [Markup.button.callback("📜 See Commands", "help")],
+            [Markup.button.callback("🔙 Back to Menu", "menu")],
+        ])
+    );
+});
 
 bot.launch();
