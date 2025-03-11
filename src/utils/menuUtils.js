@@ -36,7 +36,7 @@ export function helpMenu(ctx) {
         🔹 /menu - Show main menu  
         🔹 /help - Show this help message  
         🔹 /joke - Get a random joke  
-        🔹 /algomenu - Learn about algorithms
+        🔹 /algomenu - Algorithms menu
 
         Click a button below to explore! ⬇️`,
         Markup.inlineKeyboard([

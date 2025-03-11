@@ -38,3 +38,6 @@ export const greetings = [
     "Hello! How can I assist today?",
     "Hi! What can I do for you?",
 ];
+
+export const aboutMessage =
+    "ALGO-ASSIST is a Telegram bot that provides coding jokes, algorithm explanations, and a main menu for easy navigation. The bot is built using the Telegraf library and is configured to respond to various commands and actions. The author of this bot is sidpd";
