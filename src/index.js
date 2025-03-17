@@ -77,6 +77,7 @@ try {
 	// Handle specific algorithm actions
 	for (const key in algoCollection) {
 		let trigger_msg = key.toLowerCase().trim().replace(" ", "");
+		
 		bot.action(trigger_msg, (ctx) =>
 			ctx.reply(`\`\`\`\n${algoCollection[key]}\n\`\`\``, {
 				parse_mode: "MarkdownV2",
@@ -85,7 +86,7 @@ try {
 						[
 							{
 								text: "🔙 Back to Algo Menu",
-								callback_data: "algomenu",
+								callback_data: "algorithms",
 							},
 						],
 						[{ text: "🔙 Back to Menu", callback_data: "menu" }],
@@ -114,7 +115,7 @@ try {
 							[
 								{
 									text: "🔙 Back to Algo Menu",
-									callback_data: "algomenu",
+									callback_data: "algorithms",
 								},
 							],
 							[
@@ -133,6 +134,10 @@ try {
 		ctx.reply(
 			`No information found for "${query}". Try another algorithm.`
 		);
+	});
+
+	bot.action("explain_algorithm", (ctx) => {
+		console.log("explain algorithm triggered");
 	});
 
 	// Handle any other messages
